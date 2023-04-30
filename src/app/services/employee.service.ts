@@ -9,18 +9,28 @@ export class EmployeeService {
   constructor(private _http: HttpClient) {}
 
   addEmployee(data: any): Observable<any> {
-    return this._http.post('http://localhost:3000/employees', data);
+    return this._http.post('http://localhost:3000/create', data);
   }
 
-  updateEmployee(id: number, data: any): Observable<any> {
-    return this._http.put(`http://localhost:3000/employees/${id}`, data);
+  updateEmployee(userId: string, data: any): Observable<any> {
+    return this._http.post(`http://localhost:3000/update`, {userId, ...data});
   }
 
   getEmployeeList(): Observable<any> {
-    return this._http.get('http://localhost:3000/employees');
+    return this._http.get('http://localhost:3000/user');
   }
 
-  deleteEmployee(id: number): Observable<any> {
-    return this._http.delete(`http://localhost:3000/employees/${id}`);
+  deleteEmployee( data: any): Observable<any> {
+    const body = {userId: data}
+    return this._http.post(`http://localhost:3000/delete`, body);
+  }
+
+  updateSkill( data: any): Observable<any> {
+    return this._http.post(`http://localhost:3000/update/skill`, data);
+  }
+
+  updateHobby( data: any): Observable<any> {
+    console.log('data here', data)
+    return this._http.post(`http://localhost:3000/update/hobby`, data);
   }
 }

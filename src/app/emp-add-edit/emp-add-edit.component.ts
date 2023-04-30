@@ -28,15 +28,9 @@ export class EmpAddEditComponent implements OnInit {
     private _coreService: CoreService
   ) {
     this.empForm = this._fb.group({
-      firstName: '',
-      lastName: '',
-      email: '',
-      dob: '',
-      gender: '',
-      education: '',
-      company: '',
-      experience: '',
-      package: '',
+    username:'',
+    phone:'',
+    email:''
     });
   }
 
@@ -48,7 +42,7 @@ export class EmpAddEditComponent implements OnInit {
     if (this.empForm.valid) {
       if (this.data) {
         this._empService
-          .updateEmployee(this.data.id, this.empForm.value)
+          .updateEmployee(this.data.userId, this.empForm.value)
           .subscribe({
             next: (val: any) => {
               this._coreService.openSnackBar('Employee detail updated!');
