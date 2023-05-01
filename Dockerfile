@@ -1,7 +1,9 @@
-FROM node:14.20
-WORKDIR /app_fe
-COPY package.json .
+FROM node:14.20 as node
+WORKDIR /app
+COPY . .
 RUN npm install
-COPY . /app_fe
-EXPOSE 4200
-CMD ["npm", "start"]
+RUN npm run build
+COPY . /app
+
+FROM nginx:alpine
+COPY --from=node /app/dist/etiqa_fe /usr/share/nginx/html
